@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: questlog-app
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /api/users/1
+    envVars:
+      - key: PORT
+        value: 8080

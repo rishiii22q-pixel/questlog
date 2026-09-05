@@ -1,0 +1,25 @@
+# Logs and Temp
+*.log
+scratch/
+.gemini/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Java / Maven
+backend/target/
+*.class
+
+# Persistent Database (local files)
+backend/data/
+data/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Test Artifacts
+frontend/*test_result.png
+*e2e_screenshot.png
