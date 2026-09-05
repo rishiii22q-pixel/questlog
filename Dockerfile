@@ -31,15 +31,15 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# Create non-root user for security
-RUN addgroup -S questlog && adduser -S questlog -G questlog
-USER questlog
-
-# Create data directory for persistent H2 database
-RUN mkdir -p /app/data
+# Create data directory and configure non-root user permissions
+RUN addgroup -S questlog && adduser -S questlog -G questlog \
+    && mkdir -p /app/data \
+    && chown -R questlog:questlog /app
 
 # Copy built executable JAR from builder stage
-COPY --from=backend-builder /app/backend/target/*.jar app.jar
+COPY --from=backend-builder --chown=questlog:questlog /app/backend/target/*.jar app.jar
+
+USER questlog
 
 ENV PORT=8080
 EXPOSE 8080
